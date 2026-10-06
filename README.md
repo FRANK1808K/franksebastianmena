@@ -84,12 +84,24 @@ El plan gratuito permite 250 envíos al mes. El formulario incluye un campo tram
 
 ## Despliegue en Hostinger
 
-1. Genera el sitio (el dominio `https://franksebastianmena.quilab.co` ya está en `src/config/site.ts`):
-   ```bash
-   npm run build
-   ```
-2. Sube **el contenido** de la carpeta `out/` (no la carpeta) a `public_html/` con el Administrador de archivos o por FTP. Incluye `.htaccess`.
-3. Comprueba `https://franksebastianmena.quilab.co/`, `/sitemap.xml`, `/robots.txt` y una ruta inexistente (debe mostrar la página 404).
+El sitio se publica solo: cada push a `main` ejecuta `.github/workflows/deploy.yml`, que compila y sube `out/` por FTP al subdominio.
+
+**Configuración inicial (una vez)**
+
+1. En hPanel crea el subdominio `franksebastianmena` bajo `quilab.co`, activa su SSL y crea una cuenta FTP para él (Archivos → Cuentas FTP).
+2. En GitHub: Settings → Secrets and variables → Actions → New repository secret. Crea estos cuatro:
+
+   | Secreto | Valor |
+   |---|---|
+   | `FTP_SERVER` | Servidor FTP que muestra hPanel |
+   | `FTP_USERNAME` | Usuario de la cuenta FTP |
+   | `FTP_PASSWORD` | Contraseña de la cuenta FTP |
+   | `FTP_DIR` | Carpeta del subdominio, terminada en `/` (p. ej. `./` si la cuenta FTP ya apunta a ella) |
+
+3. Ejecuta el flujo desde la pestaña Actions → «Publicar en Hostinger» → Run workflow, o haz un push a `main`.
+4. Comprueba `https://franksebastianmena.quilab.co/`, `/sitemap.xml`, `/robots.txt` y una ruta inexistente (debe mostrar la página 404).
+
+**Manual:** `npm run build` y sube **el contenido** de `out/` (con `.htaccess`) a la carpeta del subdominio.
 
 ## Estructura
 

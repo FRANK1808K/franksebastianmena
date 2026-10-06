@@ -1,5 +1,5 @@
 // Dominio público en Hostinger. NEXT_PUBLIC_SITE_URL lo reemplaza si está definida.
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://iuriscode.quilab.co").replace(/\/$/, "");
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://franksebastianmena.quilab.co").replace(/\/$/, "");
 
 const email = "frankse1808@gmail.com";
 const whatsappNumber = "573013597813";

@@ -70,14 +70,14 @@ Se definen en `.env.local` y se incrustan al compilar: después de cambiarlas, r
 
 | Variable | Uso |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Opcional. Reemplaza el dominio público `https://iuriscode.quilab.co` que trae `src/config/site.ts` (sitemap, `robots.txt`, URL canónicas, Open Graph y JSON-LD). |
+| `NEXT_PUBLIC_SITE_URL` | Opcional. Reemplaza el dominio público `https://franksebastianmena.quilab.co` que trae `src/config/site.ts` (sitemap, `robots.txt`, URL canónicas, Open Graph y JSON-LD). |
 | `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | Opcional. Reemplaza la clave de [Web3Forms](https://web3forms.com) que ya trae `src/config/site.ts` (pública por diseño: solo permite enviarte mensajes a ti). |
 
 ### Formulario de contacto
 
 Ya funciona: la clave de Web3Forms está en `src/config/site.ts` (`contactForm.accessKey`) y los mensajes llegan a `frankse1808@gmail.com`. El correo de quien escribe queda como dirección de respuesta.
 
-- En el panel de Web3Forms, el campo «Website URL» del formulario debe ser `iuriscode.quilab.co`.
+- En el panel de Web3Forms, el campo «Website URL» del formulario debe ser `franksebastianmena.quilab.co`.
 - Para cambiar de clave, edita `site.ts` o define `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` en `.env.local`.
 
 El plan gratuito permite 250 envíos al mes. El formulario incluye un campo trampa contra bots y un tiempo límite de 15 s.
@@ -88,7 +88,7 @@ El sitio se publica solo: cada push a `main` ejecuta `.github/workflows/deploy.y
 
 **Configuración inicial (una vez)**
 
-1. En hPanel crea el subdominio `iuriscode` bajo `quilab.co`, activa su SSL y crea una cuenta FTP para él (Archivos → Cuentas FTP).
+1. En hPanel crea el subdominio `franksebastianmena` bajo `quilab.co`, activa su SSL y crea una cuenta FTP para él (Archivos → Cuentas FTP).
 2. En GitHub: Settings → Secrets and variables → Actions → New repository secret. Crea estos cuatro:
 
    | Secreto | Valor |
@@ -99,7 +99,7 @@ El sitio se publica solo: cada push a `main` ejecuta `.github/workflows/deploy.y
    | `FTP_DIR` | Carpeta del subdominio, terminada en `/` (p. ej. `./` si la cuenta FTP ya apunta a ella) |
 
 3. Ejecuta el flujo desde la pestaña Actions → «Publicar en Hostinger» → Run workflow, o haz un push a `main`.
-4. Comprueba `https://iuriscode.quilab.co/`, `/sitemap.xml`, `/robots.txt` y una ruta inexistente (debe mostrar la página 404).
+4. Comprueba `https://franksebastianmena.quilab.co/`, `/sitemap.xml`, `/robots.txt` y una ruta inexistente (debe mostrar la página 404).
 
 **Manual:** `npm run build` y sube **el contenido** de `out/` (con `.htaccess`) a la carpeta del subdominio.
 

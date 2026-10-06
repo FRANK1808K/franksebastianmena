@@ -1,6 +1,7 @@
 # Compila el sitio estático y lo publica por FTP en el subdominio de Hostinger.
 # Se ejecuta con cada push a main (o a mano desde la pestaña Actions).
 # Requiere los secretos FTP_SERVER, FTP_USERNAME, FTP_PASSWORD y FTP_DIR (ver README).
+# Sin FTP_SERVER solo compila y omite la subida (útil mientras el sitio vive en Vercel).
 name: Publicar en Hostinger
 
 on:
@@ -15,6 +16,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
     steps:
       - uses: actions/checkout@v4
 
@@ -28,6 +31,7 @@ jobs:
       - run: npm run build
 
       - name: Subir out/ por FTP
+        if: env.FTP_SERVER != ''
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}

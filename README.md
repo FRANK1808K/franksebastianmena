@@ -82,6 +82,14 @@ Ya funciona: la clave de Web3Forms está en `src/config/site.ts` (`contactForm.a
 
 El plan gratuito permite 250 envíos al mes. El formulario incluye un campo trampa contra bots y un tiempo límite de 15 s.
 
+## Despliegue provisional en Vercel
+
+1. En [vercel.com](https://vercel.com) entra con GitHub → **Add New → Project** → importa `iuriscode-web`.
+2. Deja la configuración que detecta (Next.js). En **Environment Variables** añade `NEXT_PUBLIC_SITE_URL` con la URL que asigne Vercel (p. ej. `https://iuriscode-web.vercel.app`).
+3. **Deploy**. Cada push a `main` vuelve a publicar.
+
+Al pasar a Hostinger, borra esa variable en Vercel (o el proyecto) para que el sitio use el dominio de `src/config/site.ts`.
+
 ## Despliegue en Hostinger
 
 El sitio se publica solo: cada push a `main` ejecuta `.github/workflows/deploy.yml`, que compila y sube `out/` por FTP al subdominio.

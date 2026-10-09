@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
+import Image from "next/image";
 import { pageMetadata } from "@/lib/seo";
 import { CheckIcon as Check } from "@phosphor-icons/react/dist/ssr";
 import { projectsData } from "@/lib/data";
@@ -34,13 +36,32 @@ export default function ProjectsPage() {
         return (
           <section key={project.title} aria-labelledby={titleId} className="border-t border-line">
             <div className="container-page py-16 sm:py-20">
-              <Reveal className="max-w-3xl">
+              <div className="animate-rise max-w-3xl" style={{ "--delay": "100ms" } as CSSProperties}>
                 <Badge variant="accent">{project.status}</Badge>
-                <h2 id={titleId} className="mt-4 text-3xl font-medium tracking-tight sm:text-4xl">
+                <h2 id={titleId} className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
                   {project.title}
                 </h2>
                 <p className="mt-4 text-lg text-body">{project.summary}</p>
-              </Reveal>
+              </div>
+
+              {project.image && (
+                <div
+                  className="animate-rise mt-12 overflow-hidden rounded-3xl bg-surface"
+                  style={{ "--delay": "200ms" } as CSSProperties}
+                >
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    width={project.image.width}
+                    height={project.image.height}
+                    sizes="(min-width: 1152px) 1088px, 100vw"
+                    // La primera imagen se ve al cargar: sin carga diferida
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    className="h-auto w-full"
+                  />
+                </div>
+              )}
 
               <div className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-12">
                 <Reveal>

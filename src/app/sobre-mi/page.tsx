@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRightIcon as ArrowRight, MapPinIcon as MapPin } from "@phosphor-icons/react/dist/ssr";
@@ -27,7 +28,7 @@ export default function AboutPage() {
           <Portrait eager className="size-28 sm:size-40" />
           <div>
             <p className="eyebrow mb-4">Sobre mí</p>
-            <h1 className="text-4xl font-medium tracking-tight sm:text-5xl">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
               {profileData.fullName}
             </h1>
             <Headline text={profileData.headline} className="mt-3 text-lg text-body" />
@@ -42,12 +43,12 @@ export default function AboutPage() {
       {/* Biografía */}
       <section aria-labelledby="bio-title" className="border-t border-line">
         <div className="container-page grid gap-8 py-16 sm:py-20 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <Reveal>
+          <div className="animate-rise" style={{ "--delay": "100ms" } as CSSProperties}>
             <h2 id="bio-title" className="eyebrow">Biografía</h2>
-          </Reveal>
-          <Reveal delay={0.05}>
+          </div>
+          <div className="animate-rise" style={{ "--delay": "200ms" } as CSSProperties}>
             <Markdown content={profileData.bio} className="max-w-prose text-lg" />
-          </Reveal>
+          </div>
         </div>
       </section>
 

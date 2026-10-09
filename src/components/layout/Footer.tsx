@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { footerItems } from '@/config/navigation'
 import { siteConfig } from '@/config/site'
+import { blogPostsData } from '@/lib/data'
 import { Headline } from '@/components/ui/Headline'
 
 const contactLinks = [
@@ -9,6 +10,9 @@ const contactLinks = [
   { label: 'LinkedIn', href: siteConfig.links.linkedin },
   { label: 'GitHub', href: siteConfig.links.github },
 ]
+
+/** Una sección vacía resta: el blog solo se enlaza cuando tenga artículos. */
+const visibleFooterItems = footerItems.filter((item) => item.href !== '/blog' || blogPostsData.length > 0)
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -27,7 +31,7 @@ export function Footer() {
         <nav aria-label="Pie de página">
           <h2 className="mb-4 text-sm font-semibold text-ink">Secciones</h2>
           <ul className="flex flex-col gap-2">
-            {footerItems.map((item) => (
+            {visibleFooterItems.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="link-underline text-sm text-body hover:text-ink">
                   {item.label}

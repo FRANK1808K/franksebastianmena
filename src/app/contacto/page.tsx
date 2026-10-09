@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { pageMetadata } from "@/lib/seo";
 import type { ReactNode } from "react";
 import { EnvelopeSimpleIcon as Mail, MapPinIcon as MapPin } from "@phosphor-icons/react/dist/ssr";
 import { siteConfig } from "@/config/site";
-import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GitHubIcon, LinkedInIcon, WhatsAppIcon } from "@/components/ui/SocialIcons";
 import ContactForm from "@/components/sections/contacto/ContactForm";
@@ -64,7 +64,7 @@ export default function ContactPage() {
 
       <section aria-label="Formulario y datos de contacto" className="border-t border-line">
         <div className="container-page grid gap-12 py-16 sm:py-20 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
-          <Reveal>
+          <div className="animate-rise" style={{ "--delay": "100ms" } as CSSProperties}>
             <h2 className="eyebrow mb-8">Directo</h2>
             <ul className="flex flex-col gap-6">
               <li>
@@ -117,12 +117,12 @@ export default function ContactPage() {
                 </a>
               </li>
             </ul>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.08}>
+          <div className="animate-rise" style={{ "--delay": "200ms" } as CSSProperties}>
             <h2 className="eyebrow mb-8">Escríbeme</h2>
             <ContactForm />
-          </Reveal>
+          </div>
         </div>
       </section>
     </>

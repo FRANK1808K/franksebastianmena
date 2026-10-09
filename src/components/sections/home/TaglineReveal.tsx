@@ -47,8 +47,8 @@ export default function TaglineReveal() {
                 data-index={index}
                 className={cn(
                   'transition-colors duration-700 ease-fluid',
-                  // Con movimiento reducido, la frase se muestra completa desde el inicio
-                  active[index] ? 'text-ink' : 'text-ink/30 motion-reduce:text-ink',
+                  // Apagada al 50 %: contraste 3,5:1, mínimo AA para texto grande. Con movimiento reducido, completa desde el inicio
+                  active[index] ? 'text-ink' : 'text-ink/50 motion-reduce:text-ink',
                 )}
               >
                 {word}

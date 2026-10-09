@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { pageMetadata } from "@/lib/seo";
 import { GraduationCapIcon as GraduationCap } from "@phosphor-icons/react/dist/ssr";
 import { credentialsData, profileData } from "@/lib/data";
@@ -36,7 +37,7 @@ export default function FormacionPage() {
         </div>
 
         {/* Pregrado */}
-        <Reveal delay={0.08} className="mt-12">
+        <div className="animate-rise mt-12" style={{ "--delay": "100ms" } as CSSProperties}>
           <div className="flex flex-col gap-4 rounded-xl bg-surface p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
               <GraduationCap aria-hidden="true" className="size-6" />
@@ -47,7 +48,7 @@ export default function FormacionPage() {
               <p className="text-body">{degree.organization}</p>
             </div>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {groups.map(({ kind, title, id }) => {

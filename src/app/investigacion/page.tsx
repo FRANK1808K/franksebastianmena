@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { chapterJsonLd, jsonLdScript, pageMetadata } from "@/lib/seo";
 import { BookOpenIcon as BookOpen, DownloadSimpleIcon as Download } from "@phosphor-icons/react/dist/ssr";
 import { profileData, publicationData } from "@/lib/data";
@@ -65,11 +66,11 @@ export default function ResearchPage() {
       {/* Capítulo */}
       <section aria-labelledby="doc-title" className="border-t border-line">
         <div className="container-page grid items-start gap-12 py-16 sm:py-20 md:grid-cols-[minmax(0,16rem)_1fr] md:gap-16">
-          <Reveal className="md:sticky md:top-24">
+          <div className="animate-rise md:sticky md:top-24" style={{ "--delay": "100ms" } as CSSProperties}>
             <DocumentCover />
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.08} className="flex min-w-0 flex-col items-start">
+          <div className="animate-rise flex min-w-0 flex-col items-start" style={{ "--delay": "200ms" } as CSSProperties}>
             <p className="flex items-center gap-2 text-sm text-mute">
               <BookOpen aria-hidden="true" className="size-4" />
               {pub.kind} · {pub.book.publisher}, {pub.book.year} · pp. {pub.book.pages}
@@ -149,7 +150,7 @@ export default function ResearchPage() {
               </a>
               .
             </p>
-          </Reveal>
+          </div>
         </div>
       </section>
 

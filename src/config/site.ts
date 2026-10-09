@@ -1,5 +1,12 @@
-// Dominio público en Hostinger. NEXT_PUBLIC_SITE_URL lo reemplaza si está definida.
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://franksebastianmena.quilab.co").replace(/\/$/, "");
+// Dirección pública del sitio (sitemap, canonical, Open Graph). Orden de prioridad:
+// 1) NEXT_PUBLIC_SITE_URL, si se define a mano;
+// 2) el dominio de producción del proyecto en Vercel (VERCEL_PROJECT_PRODUCTION_URL:
+//    dominio propio si está conectado, o el .vercel.app);
+// 3) un valor local para desarrollo.
+const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : undefined;
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || vercelProductionUrl || "http://localhost:3000").replace(/\/$/, "");
 
 const email = "frankse1808@gmail.com";
 const whatsappNumber = "573013597813";

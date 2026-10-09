@@ -15,9 +15,9 @@ export function Footer() {
 
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
+      <div className="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr]">
         <div className="flex flex-col gap-3 sm:col-span-2 lg:col-span-1">
-          <Link href="/" className="w-fit font-serif text-xl font-medium text-ink">
+          <Link href="/" className="w-fit text-xl font-medium text-ink">
             {siteConfig.name}
           </Link>
           <Headline stacked text={siteConfig.author.headline} className="text-sm text-body" />
@@ -25,8 +25,8 @@ export function Footer() {
         </div>
 
         <nav aria-label="Pie de página">
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-mute">Secciones</h2>
-          <ul className="flex flex-col gap-2.5">
+          <h2 className="mb-4 text-sm font-semibold text-ink">Secciones</h2>
+          <ul className="flex flex-col gap-2">
             {footerItems.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="link-underline text-sm text-body hover:text-ink">
@@ -38,8 +38,8 @@ export function Footer() {
         </nav>
 
         <div>
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-mute">Contacto</h2>
-          <ul className="flex flex-col gap-2.5">
+          <h2 className="mb-4 text-sm font-semibold text-ink">Contacto</h2>
+          <ul className="flex flex-col gap-2">
             {contactLinks.map((link) => {
               const newTab = link.href.startsWith('http')
               return (

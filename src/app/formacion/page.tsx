@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { GraduationCap } from "lucide-react";
+import { GraduationCapIcon as GraduationCap } from "@phosphor-icons/react/dist/ssr";
 import { credentialsData, profileData } from "@/lib/data";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -25,7 +25,7 @@ export default function FormacionPage() {
 
   return (
     <>
-      <section className="container-page pb-14 pt-28 sm:pb-16 sm:pt-40">
+      <section className="container-page pb-12 pt-12 sm:pb-16 sm:pt-20">
         <div className="animate-rise">
           <SectionHeading
             as="h1"
@@ -43,7 +43,7 @@ export default function FormacionPage() {
             </span>
             <div className="flex-1">
               <p className="text-sm text-mute">Pregrado · {degree.period}</p>
-              <h2 className="font-serif text-2xl font-medium">{degree.title}</h2>
+              <h2 className="text-2xl font-medium">{degree.title}</h2>
               <p className="text-body">{degree.organization}</p>
             </div>
           </div>
@@ -55,9 +55,9 @@ export default function FormacionPage() {
         if (items.length === 0) return null;
         return (
           <section key={kind} aria-labelledby={`${id}-title`} className="border-t border-line">
-            <div className="container-page py-14 sm:py-16">
+            <div className="container-page py-12 sm:py-16">
               <Reveal className="mb-8 flex items-baseline gap-3">
-                <h2 id={`${id}-title`} className="font-serif text-2xl font-medium sm:text-3xl">
+                <h2 id={`${id}-title`} className="text-2xl font-medium sm:text-3xl">
                   {title}
                 </h2>
                 <span className="text-sm text-mute">
@@ -65,7 +65,7 @@ export default function FormacionPage() {
                   <span className="sr-only"> {items.length === 1 ? "elemento" : "elementos"}</span>
                 </span>
               </Reveal>
-              <Stagger as="ul" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((credential) => (
                   <StaggerItem as="li" key={`${credential.issuer}-${credential.title}`}>
                     <CredentialCard credential={credential} />

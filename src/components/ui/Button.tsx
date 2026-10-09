@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRightIcon as ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -15,16 +15,19 @@ interface StyleProps {
 
 export function buttonStyles({ variant = 'primary', size = 'md' }: StyleProps = {}) {
   return cn(
-    'group inline-flex items-center justify-center gap-2 rounded-md font-medium',
-    'transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50',
+    'group inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 font-semibold',
+    'transition-[background-color,border-color,color,transform] duration-500 ease-fluid active:scale-[0.98]',
+    'disabled:pointer-events-none disabled:opacity-50',
     {
       primary: 'bg-accent text-on-accent hover:bg-accent-hover',
-      secondary: 'border border-line-strong bg-canvas text-ink hover:border-ink',
+      secondary: 'border border-line-strong bg-canvas text-ink hover:border-ink hover:bg-surface',
       ghost: 'text-ink hover:bg-surface',
     }[variant],
     {
-      md: 'h-10 px-4 text-sm',
-      lg: 'h-12 px-6 text-[15px]',
+      /** Botones pequeños (cabecera, acciones secundarias). */
+      md: 'text-sm',
+      /** Botón principal. */
+      lg: 'text-base',
     }[size],
   );
 }
@@ -33,7 +36,7 @@ function Arrow() {
   return (
     <ArrowRight
       aria-hidden="true"
-      className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1"
+      className="size-4 transition-transform duration-500 ease-fluid group-hover:translate-x-1"
     />
   );
 }

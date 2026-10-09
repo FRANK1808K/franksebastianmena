@@ -2,12 +2,12 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
 import { chapterJsonLd, jsonLdScript, pageMetadata } from "@/lib/seo";
-import { BookOpen, Download } from "lucide-react";
+import { BookOpenIcon as BookOpen, DownloadSimpleIcon as Download } from "@phosphor-icons/react/dist/ssr";
 import { profileData, publicationData } from "@/lib/data";
 import { siteConfig } from "@/config/site";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
+import { ButtonLink, buttonStyles } from "@/components/ui/Button";
 
 const pub = publicationData;
 
@@ -33,12 +33,12 @@ function DocumentCover() {
       className="relative mx-auto flex aspect-[3/4] w-full max-w-52 flex-col justify-between overflow-hidden rounded-md border border-line bg-canvas p-6 shadow-[0_18px_40px_-24px_rgb(18_22_28/0.35)] md:max-w-64"
     >
       <span className="absolute inset-y-0 left-0 w-1.5 bg-accent" />
-      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-mute">{pub.kind}</p>
-      <p className="font-serif text-xl font-medium leading-tight text-ink">{pub.title}</p>
-      <div className="flex flex-col gap-1.5">
+      <p className="text-xs font-semibold text-mute">{pub.kind}</p>
+      <p className="text-xl font-medium text-ink">{pub.title}</p>
+      <div className="flex flex-col gap-2">
         <span className="h-px w-10 bg-line-strong" />
         <p className="text-xs text-body">Hinestroza, Moreno y Mena</p>
-        <p className="text-[10px] text-mute">
+        <p className="text-xs text-mute">
           {pub.book.publisher} · {pub.book.year}
         </p>
       </div>
@@ -52,7 +52,7 @@ export default function ResearchPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(chapterJsonLd)} />
-      <section className="container-page pb-14 pt-28 sm:pb-16 sm:pt-40">
+      <section className="container-page pb-12 pt-12 sm:pb-16 sm:pt-20">
         <div className="animate-rise">
           <SectionHeading
             as="h1"
@@ -66,7 +66,7 @@ export default function ResearchPage() {
       {/* Capítulo */}
       <section aria-labelledby="doc-title" className="border-t border-line">
         <div className="container-page grid items-start gap-12 py-16 sm:py-20 md:grid-cols-[minmax(0,16rem)_1fr] md:gap-16">
-          <Reveal className="md:sticky md:top-28">
+          <Reveal className="md:sticky md:top-24">
             <DocumentCover />
           </Reveal>
 
@@ -75,10 +75,10 @@ export default function ResearchPage() {
               <BookOpen aria-hidden="true" className="size-4" />
               {pub.kind} · {pub.book.publisher}, {pub.book.year} · pp. {pub.book.pages}
             </p>
-            <h2 id="doc-title" className="mt-3 font-serif text-3xl font-medium leading-tight tracking-tight sm:text-4xl">
+            <h2 id="doc-title" className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl">
               {pub.title}
             </h2>
-            <p className="mt-3 text-lg leading-snug text-body">{pub.subtitle}</p>
+            <p className="mt-3 text-lg text-body">{pub.subtitle}</p>
             <p className="mt-4 text-sm text-mute">
               <span className="sr-only">Autores: </span>
               {joinNames(pub.authors)} · Universidad Tecnológica del Chocó
@@ -89,14 +89,14 @@ export default function ResearchPage() {
                 <a
                   href={pub.pdfUrl}
                   download
-                  className="group inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent px-6 text-[15px] font-medium text-on-accent transition-colors duration-200 hover:bg-accent-hover"
+                  className={buttonStyles({ size: 'lg' })}
                 >
                   Descargar PDF
                   <span className="text-sm font-normal opacity-80">({pub.pdfPages} págs.)</span>
-                  <Download aria-hidden="true" className="size-4 transition-transform duration-200 group-hover:translate-y-0.5" />
+                  <Download aria-hidden="true" className="size-4 transition-transform duration-500 ease-fluid group-hover:translate-y-0.5" />
                 </a>
               ) : (
-                <p className="inline-flex h-12 items-center justify-center rounded-md border border-dashed border-line-strong px-6 text-[15px] text-mute">
+                <p className="inline-flex items-center justify-center rounded-lg border border-dashed border-line-strong px-3 py-2 text-base text-mute">
                   PDF disponible próximamente
                 </p>
               )}
@@ -105,8 +105,8 @@ export default function ResearchPage() {
               </ButtonLink>
             </div>
 
-            <h3 className="eyebrow mb-4 mt-14">Resumen</h3>
-            <p className="max-w-prose text-lg leading-relaxed text-body">{pub.summary}</p>
+            <h3 className="eyebrow mb-4 mt-12">Resumen</h3>
+            <p className="max-w-prose text-lg text-body">{pub.summary}</p>
 
             <h3 className="eyebrow mb-4 mt-12">Preguntas que responde</h3>
             <ol className="flex max-w-prose list-[lower-roman] flex-col gap-2 pl-6 text-lg text-body marker:text-mute">
@@ -118,7 +118,7 @@ export default function ResearchPage() {
             </ol>
 
             <h3 className="eyebrow mb-4 mt-12">Publicado en</h3>
-            <dl className="grid max-w-prose grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-[15px]">
+            <dl className="grid max-w-prose grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm">
               <dt className="text-mute">Libro</dt>
               <dd className="text-body">
                 <cite className="not-italic">{pub.book.title}</cite>
@@ -134,7 +134,7 @@ export default function ResearchPage() {
             </dl>
 
             <h3 className="eyebrow mb-4 mt-12">Cómo citar (APA)</h3>
-            <blockquote className="max-w-prose rounded-lg bg-surface p-5 text-[15px] leading-relaxed text-body">
+            <blockquote className="max-w-prose rounded-lg bg-surface p-4 text-sm text-body">
               {pub.citation}
             </blockquote>
 
@@ -161,7 +161,7 @@ export default function ResearchPage() {
             <h2 id="context-title" className="eyebrow">Dónde investigo</h2>
             <div>
               <p className="text-sm text-mute">{research.period}</p>
-              <h3 className="mt-1 font-serif text-2xl font-medium">{research.title}</h3>
+              <h3 className="mt-1 text-2xl font-medium">{research.title}</h3>
               <p className="text-lg text-body">{research.organization}</p>
             </div>
           </Reveal>

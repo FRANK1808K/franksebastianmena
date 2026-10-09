@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Sistema de diseño: fondo blanco, editorial, un solo acento.
+   Sistema de diseño: fondo blanco, una sola tipografía (Geist),
+   un solo acento.
    Acento "azul tinta" #1E3A5F: el color de la firma en un
    documento y del enlace en la web (≈11:1 sobre blanco).
    ============================================================ */
@@ -28,22 +29,23 @@
   --color-danger: #b42318;
   --color-success: #1f6f43;
 
-  /* Tipografía (variables de next/font en <html>) */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), ui-serif, Georgia, serif;
+  /* Tipografía (variable de next/font en <html>) */
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
 
-  /* Movimiento */
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Movimiento: curva con masa, para toda transición */
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(4rem);
+    filter: blur(12px);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: blur(0);
   }
 }
 
@@ -61,7 +63,6 @@
     background-color: var(--color-canvas);
     color: var(--color-body);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -124,48 +125,57 @@
     }
   }
 
-  /* Tarjeta sobria: borde fino, elevación mínima al pasar el cursor */
+  /* Tarjeta plana: sin borde ni sombra; la jerarquía la da el fondo */
   .card {
-    background-color: var(--color-canvas);
-    border: 1px solid var(--color-line);
-    border-radius: 0.75rem;
-    transition:
-      border-color 200ms var(--ease-out-soft),
-      box-shadow 200ms var(--ease-out-soft),
-      transform 200ms var(--ease-out-soft);
+    background-color: var(--color-surface);
+    border-radius: 1rem;
+    transition: background-color 500ms var(--ease-fluid);
   }
   .card-hover:hover {
-    border-color: var(--color-line-strong);
-    box-shadow: 0 6px 20px -12px rgb(18 22 28 / 0.18);
-    transform: translateY(-2px);
+    background-color: var(--color-accent-soft);
   }
 
-  /* Enlace con subrayado animado */
+  /* Enlace con subrayado animado (transform, sin degradados) */
   .link-underline {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 1px;
-    transition: background-size 250ms var(--ease-out-soft);
+    position: relative;
   }
-  .link-underline:hover,
-  .link-underline:focus-visible {
-    background-size: 100% 1px;
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms var(--ease-fluid);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after,
+  .link-underline[aria-current="page"]::after {
+    transform: scaleX(1);
   }
 
-  /* Etiqueta superior de sección */
+  /* Etiqueta superior de sección: sentence case */
   .eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     color: var(--color-accent);
+  }
+
+  /* Único degradado permitido: texto del título del hero (tema claro) */
+  .text-gradient-hero {
+    background-image: linear-gradient(to right, #000000, #666666);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   /* Entrada al cargar, solo con CSS (no espera al JavaScript: mejor LCP).
      Escalonar con style={{ '--delay': '90ms' }}. */
   .animate-rise {
-    animation: rise 0.6s var(--ease-out-soft) var(--delay, 0ms) both;
+    animation: rise 900ms var(--ease-fluid) var(--delay, 0ms) both;
   }
 }

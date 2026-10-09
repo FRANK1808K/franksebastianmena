@@ -16,7 +16,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
       return <strong key={key} className="font-semibold text-ink">{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith('`') && part.endsWith('`')) {
-      return <code key={key} className="rounded bg-surface px-1 py-0.5 text-[0.9em]">{part.slice(1, -1)}</code>;
+      return <code key={key} className="rounded bg-surface px-1 py-0.5 text-sm">{part.slice(1, -1)}</code>;
     }
     const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
     if (link) {
@@ -34,7 +34,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
       );
     }
     if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
-      return <em key={key}>{part.slice(1, -1)}</em>;
+      return <em key={key} className="not-italic font-medium text-ink">{part.slice(1, -1)}</em>;
     }
     return part;
   });
@@ -44,34 +44,34 @@ export function Markdown({ content, className }: { content: string; className?: 
   const blocks = content.trim().split(/\n{2,}/);
 
   return (
-    <div className={cn('flex flex-col gap-5 text-body leading-relaxed', className)}>
+    <div className={cn('flex flex-col gap-4 text-body', className)}>
       {blocks.map((block, b) => {
         const key = `b${b}`;
         const lines = block.split('\n');
 
         if (block.startsWith('### ')) {
-          return <h3 key={key} className="font-serif text-xl text-ink">{renderInline(block.slice(4), key)}</h3>;
+          return <h3 key={key} className="text-xl text-ink">{renderInline(block.slice(4), key)}</h3>;
         }
         if (block.startsWith('## ')) {
-          return <h2 key={key} className="font-serif text-2xl text-ink">{renderInline(block.slice(3), key)}</h2>;
+          return <h2 key={key} className="text-2xl text-ink">{renderInline(block.slice(3), key)}</h2>;
         }
         if (lines.every((l) => l.startsWith('> '))) {
           return (
-            <blockquote key={key} className="border-l-2 border-accent pl-4 italic">
+            <blockquote key={key} className="rounded-lg bg-surface p-4 text-ink">
               {renderInline(lines.map((l) => l.slice(2)).join(' '), key)}
             </blockquote>
           );
         }
         if (lines.every((l) => /^[-*] /.test(l))) {
           return (
-            <ul key={key} className="list-disc space-y-1 pl-5 marker:text-mute">
+            <ul key={key} className="list-disc space-y-1 pl-6 marker:text-mute">
               {lines.map((l, i) => <li key={i}>{renderInline(l.slice(2), `${key}-${i}`)}</li>)}
             </ul>
           );
         }
         if (lines.every((l) => /^\d+\. /.test(l))) {
           return (
-            <ol key={key} className="list-decimal space-y-1 pl-5 marker:text-mute">
+            <ol key={key} className="list-decimal space-y-1 pl-6 marker:text-mute">
               {lines.map((l, i) => <li key={i}>{renderInline(l.replace(/^\d+\. /, ''), `${key}-${i}`)}</li>)}
             </ol>
           );

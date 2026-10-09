@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="container-page flex min-h-[70vh] flex-col items-start justify-center pb-24 pt-32">
+    <section className="container-page flex min-h-[70vh] flex-col items-start justify-center pb-24 pt-12">
       <p className="eyebrow mb-4">Error 404</p>
-      <h1 className="font-serif text-4xl font-medium tracking-tight sm:text-5xl">Esta página no existe</h1>
+      <h1 className="text-4xl font-medium tracking-tight sm:text-5xl">Esta página no existe</h1>
       <p className="mt-4 max-w-xl text-lg text-body">
         Puede que el enlace esté mal escrito o que la página haya cambiado de lugar.
       </p>

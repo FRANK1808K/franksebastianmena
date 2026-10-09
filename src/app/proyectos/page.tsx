@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Check } from "lucide-react";
+import { CheckIcon as Check } from "@phosphor-icons/react/dist/ssr";
 import { projectsData } from "@/lib/data";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata({
 export default function ProjectsPage() {
   return (
     <>
-      <section className="container-page pb-14 pt-28 sm:pb-16 sm:pt-40">
+      <section className="container-page pb-12 pt-12 sm:pb-16 sm:pt-20">
         <div className="animate-rise">
           <SectionHeading
             as="h1"
@@ -36,23 +36,23 @@ export default function ProjectsPage() {
             <div className="container-page py-16 sm:py-20">
               <Reveal className="max-w-3xl">
                 <Badge variant="accent">{project.status}</Badge>
-                <h2 id={titleId} className="mt-4 font-serif text-3xl font-medium tracking-tight sm:text-4xl">
+                <h2 id={titleId} className="mt-4 text-3xl font-medium tracking-tight sm:text-4xl">
                   {project.title}
                 </h2>
-                <p className="mt-4 text-lg leading-relaxed text-body">{project.summary}</p>
+                <p className="mt-4 text-lg text-body">{project.summary}</p>
               </Reveal>
 
               <div className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-12">
                 <Reveal>
                   <h3 className="eyebrow mb-4">Problema</h3>
-                  <p className="leading-relaxed text-body">{project.problem}</p>
+                  <p className="text-body">{project.problem}</p>
                 </Reveal>
 
                 <Reveal delay={0.06}>
                   <h3 className="eyebrow mb-4">Qué incluye</h3>
                   <Stagger as="ul" className="flex flex-col gap-3">
                     {project.highlights.map((item) => (
-                      <StaggerItem as="li" key={item} className="flex gap-3 leading-relaxed text-body">
+                      <StaggerItem as="li" key={item} className="flex gap-3 text-body">
                         <Check aria-hidden="true" className="mt-1 size-4 shrink-0 text-accent" />
                         {item}
                       </StaggerItem>

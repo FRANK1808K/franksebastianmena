@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import { EASE_FLUID } from '@/lib/motion';
 
 /** true hasta que la primera página termina de montarse. */
 let isFirstLoad = true;
@@ -23,7 +24,7 @@ export default function Template({ children }: { children: ReactNode }) {
     <motion.div
       initial={animate ? { opacity: 0 } : false}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: EASE_FLUID }}
     >
       {children}
     </motion.div>

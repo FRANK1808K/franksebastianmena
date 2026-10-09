@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
 import { navigationItems } from '@/config/navigation'
 import { siteConfig } from '@/config/site'
 import { cn, isActivePath } from '@/lib/utils'
@@ -13,7 +12,8 @@ interface MobileMenuProps {
   onClose: () => void
 }
 
-const EASE = [0.22, 1, 0.36, 1] as const
+/** Retrasos escalonados de cada enlace (clases literales para Tailwind). */
+const STAGGER = ['delay-100', 'delay-150', 'delay-200', 'delay-250', 'delay-300', 'delay-350', 'delay-400', 'delay-450']
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname()
@@ -34,68 +34,60 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     }
   }, [isOpen, onClose])
 
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          id="mobile-menu"
-          ref={panelRef}
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25, ease: EASE }}
-          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-canvas lg:hidden"
-        >
-          <nav aria-label="Principal (móvil)" className="container-page py-6">
-            <motion.ul
-              className="flex flex-col"
-              initial="hidden"
-              animate="visible"
-              variants={{ visible: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } } }}
-            >
-              {navigationItems.map((item) => {
-                const active = isActivePath(pathname, item.href)
-                return (
-                  <motion.li
-                    key={item.href}
-                    variants={{
-                      hidden: { opacity: 0, y: 8 },
-                      visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE } },
-                    }}
-                    className="border-b border-line"
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={onClose}
-                      aria-current={active ? 'page' : undefined}
-                      className={cn(
-                        'flex items-center justify-between py-4 font-serif text-2xl',
-                        active ? 'text-accent' : 'text-ink',
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </motion.li>
-                )
-              })}
-            </motion.ul>
+  // Siempre en el DOM para animar también el cierre; `invisible` lo saca del foco
+  const reveal = (index: number) =>
+    cn(
+      'transition-[opacity,transform] duration-700 ease-fluid',
+      isOpen ? cn('translate-y-0 opacity-100', STAGGER[index]) : 'translate-y-12 opacity-0',
+    )
 
-            <div className="mt-8 flex flex-col gap-3 text-sm">
-              <a href={siteConfig.links.email} className="link-underline w-fit text-body">
-                {siteConfig.author.email}
-              </a>
-              <a
-                href={siteConfig.links.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline w-fit text-body"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </nav>
-        </motion.div>
+  return (
+    <div
+      id="mobile-menu"
+      ref={panelRef}
+      aria-hidden={!isOpen}
+      className={cn(
+        'fixed inset-0 z-40 overflow-y-auto bg-white/80 backdrop-blur-3xl transition-[opacity,visibility] duration-700 ease-fluid lg:hidden',
+        isOpen ? 'visible opacity-100' : 'pointer-events-none invisible opacity-0',
       )}
-    </AnimatePresence>
+    >
+      <nav aria-label="Principal (móvil)" className="container-page pb-12 pt-24">
+        <ul className="flex flex-col gap-2">
+          {navigationItems.map((item, index) => {
+            const active = isActivePath(pathname, item.href)
+            return (
+              <li key={item.href} className="overflow-hidden">
+                <Link
+                  href={item.href}
+                  onClick={onClose}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'block py-2 text-4xl font-semibold tracking-tight',
+                    active ? 'text-accent' : 'text-ink',
+                    reveal(index),
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+
+        <div className={cn('mt-12 flex flex-col gap-3 text-sm', reveal(navigationItems.length))}>
+          <a href={siteConfig.links.email} className="link-underline w-fit text-body">
+            {siteConfig.author.email}
+          </a>
+          <a
+            href={siteConfig.links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline w-fit text-body"
+          >
+            LinkedIn
+          </a>
+        </div>
+      </nav>
+    </div>
   )
 }

@@ -8,7 +8,7 @@ export const siteConfig = {
   name: "Frank Sebastián Mena",
   title: "Frank Sebastián Mena | Derecho, derechos humanos y tecnología",
   description:
-    "Estudiante de Derecho en Quibdó, Chocó (Colombia). Derechos humanos, derechos étnico-ambientales, investigación jurídica, Python e inteligencia artificial.",
+    "Estudiante de Derecho en Quibdó, Chocó (Colombia). Derechos humanos, derechos étnicos y ambientales, investigación jurídica, Python e inteligencia artificial.",
   url: siteUrl,
   locale: "es_CO",
   ogImage: "/images/og-image.png",

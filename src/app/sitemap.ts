@@ -10,11 +10,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const hasPosts = blogPostsData.length > 0;
 
   // El blog solo se indexa cuando tenga artículos reales.
-  return footerItems
+  return [...footerItems, { label: 'Privacidad', href: '/privacidad' }]
     .filter((item) => item.href !== '/blog' || hasPosts)
     .map((item) => ({
       url: item.href === '/' ? `${baseUrl}/` : `${baseUrl}${item.href}/`,
       changeFrequency: 'monthly' as const,
-      priority: item.href === '/' ? 1 : 0.8,
+      priority: item.href === '/' ? 1 : item.href === '/privacidad' ? 0.3 : 0.8,
     }));
 }

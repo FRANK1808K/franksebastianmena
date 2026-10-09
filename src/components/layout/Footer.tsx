@@ -59,9 +59,14 @@ export function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <p className="container-page py-6 text-xs text-mute">
-          © {currentYear} {siteConfig.name}
-        </p>
+        <div className="container-page flex flex-wrap items-center justify-between gap-4 py-6 text-xs text-mute">
+          <p>
+            © {currentYear} {siteConfig.name}
+          </p>
+          <Link href="/privacidad" className="link-underline hover:text-ink">
+            Privacidad
+          </Link>
+        </div>
       </div>
     </footer>
   )

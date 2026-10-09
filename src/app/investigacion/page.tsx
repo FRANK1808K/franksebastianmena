@@ -30,11 +30,10 @@ function DocumentCover() {
   return (
     <div
       aria-hidden="true"
-      className="relative mx-auto flex aspect-[3/4] w-full max-w-52 flex-col justify-between overflow-hidden rounded-md border border-line bg-canvas p-6 shadow-[0_18px_40px_-24px_rgb(18_22_28/0.35)] md:max-w-64"
+      className="relative mx-auto flex aspect-[3/4] w-full max-w-52 flex-col justify-between overflow-hidden rounded-2xl bg-surface p-6 md:max-w-64"
     >
-      <span className="absolute inset-y-0 left-0 w-1.5 bg-accent" />
       <p className="text-xs font-semibold text-mute">{pub.kind}</p>
-      <p className="text-xl font-medium text-ink">{pub.title}</p>
+      <p className="text-xl font-semibold tracking-tight text-ink">{pub.title}</p>
       <div className="flex flex-col gap-2">
         <span className="h-px w-10 bg-line-strong" />
         <p className="text-xs text-body">Hinestroza, Moreno y Mena</p>
@@ -58,7 +57,7 @@ export default function ResearchPage() {
             as="h1"
             eyebrow="Investigación"
             title="Investigación"
-            subtitle="Derechos humanos, derechos étnico-ambientales y derecho público, desde Quibdó."
+            subtitle="Derechos humanos, derechos étnicos y ambientales y derecho público, desde Quibdó."
           />
         </div>
       </section>

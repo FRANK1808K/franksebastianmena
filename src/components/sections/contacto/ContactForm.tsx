@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { CheckCircle2, Loader2, Mail, Send } from 'lucide-react';
+import { CheckCircleIcon as CheckCircle2, CircleNotchIcon as Loader2, EnvelopeSimpleIcon as Mail, PaperPlaneTiltIcon as Send } from '@phosphor-icons/react/dist/ssr';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { WhatsAppIcon } from '@/components/ui/SocialIcons';
@@ -130,7 +130,7 @@ export default function ContactForm() {
     return (
       <div role="status" className="flex flex-col items-start gap-4 rounded-xl bg-surface p-8">
         <CheckCircle2 aria-hidden="true" className="size-8 text-success" />
-        <h3 ref={sentRef} tabIndex={-1} className="font-serif text-2xl font-medium focus:outline-none">
+        <h3 ref={sentRef} tabIndex={-1} className="text-2xl font-medium focus:outline-none">
           ¡Mensaje enviado!
         </h3>
         <p className="text-body">Gracias por escribirme. Te responderé al correo que indicaste.</p>
@@ -147,11 +147,11 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-4"
       aria-describedby="form-note"
       aria-busy={sending}
     >
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2">
         <Input label="Nombre" name="name" autoComplete="name" required error={errors.name} disabled={sending} />
         <Input
           label="Correo"

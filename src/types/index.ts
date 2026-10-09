@@ -25,6 +25,8 @@ export interface Profile {
   fullName: string;
   headline: string;
   valueStatement: string;
+  /** Frase larga de la sección de revelado por palabras (home). */
+  tagline: string;
   location: string;
   /** Biografía en Markdown, en primera persona. */
   bio: string;
@@ -87,6 +89,8 @@ export interface Project {
   stack: string[];
   repositoryUrl?: string;
   liveUrl?: string;
+  /** Captura real del proyecto (ruta dentro de /public). */
+  image?: { src: string; alt: string; width: number; height: number };
 }
 
 // --- Blog ---

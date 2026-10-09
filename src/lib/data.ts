@@ -15,6 +15,8 @@ export const profileData: Profile = {
   fullName: "Frank Sebastián Mena",
   headline: "Estudiante de Derecho | Derechos humanos y tecnología | Python e IA",
   valueStatement: "Traduzco entre el derecho, las comunidades y la tecnología.",
+  tagline:
+    "Estudio los derechos de los pueblos étnicos y de la naturaleza, y uso la tecnología para que lleguen a quienes los necesitan.",
   location: "Quibdó, Chocó, Colombia",
   avatarUrl: "/images/profile.webp",
   bio: `Soy estudiante de Derecho en la **Universidad Tecnológica del Chocó**, en Quibdó. Me interesa el punto donde se cruzan los derechos humanos, los derechos de los pueblos étnicos y el ambiente, y la tecnología.
@@ -28,7 +30,7 @@ Con Lisneider Hinestroza Cuesta y Nelsy Moreno Ibargüen soy coautor del capítu
 Este sitio, construido con Next.js y TypeScript, es mi proyecto personal en desarrollo.`,
   focusAreas: [
     {
-      title: "Derechos humanos y derechos étnico-ambientales",
+      title: "Derechos humanos, étnicos y ambientales",
       description:
         "Sistema Interamericano, Ley 70 de 1993, Acuerdo de Escazú y la pregunta por los derechos de la naturaleza.",
     },
@@ -268,6 +270,12 @@ export const projectsData: Project[] = [
       "Supabase (esquema preparado, aún sin conectar)",
     ],
     repositoryUrl: "https://github.com/FRANK1808K/iuriscode-web",
+    image: {
+      src: "/images/projects/sitio-web.webp",
+      alt: "Página de inicio de este sitio vista en un navegador de escritorio y en un teléfono",
+      width: 2400,
+      height: 1500,
+    },
   },
 ];
 

@@ -3,57 +3,50 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
 import { navigationItems } from '@/config/navigation'
 import { siteConfig } from '@/config/site'
 import { cn, isActivePath } from '@/lib/utils'
 import MobileMenu from './MobileMenu'
 
+/** Isla flotante: píldora de vidrio separada del borde superior. */
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const closeMenu = useCallback(() => {
     setIsMenuOpen(false)
     toggleRef.current?.focus()
   }, [])
 
+  // Al pasar a escritorio el menú móvil deja de tener sentido
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const onChange = () => desktop.matches && setIsMenuOpen(false)
+    desktop.addEventListener('change', onChange)
+    return () => desktop.removeEventListener('change', onChange)
+  }, [])
+
   return (
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-60 focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-canvas"
       >
         Ir al contenido principal
       </a>
-      <header
-        className={cn(
-          'fixed inset-x-0 top-0 z-50 border-b bg-canvas transition-[border-color,box-shadow] duration-300',
-          isScrolled || isMenuOpen
-            ? 'border-line shadow-[0_1px_12px_-6px_rgb(18_22_28/0.12)]'
-            : 'border-transparent',
-        )}
-      >
-        <div className="container-page flex h-16 items-center justify-between">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4">
+        <div className="pointer-events-auto mx-auto mt-6 flex w-max max-w-full items-center gap-6 rounded-full border border-line bg-white/70 py-2 pl-6 pr-2 backdrop-blur-xl lg:pr-6">
           <Link
             href="/"
-            className="font-serif text-lg font-medium tracking-tight text-ink"
+            className="text-base font-semibold tracking-tight text-ink"
             onClick={() => setIsMenuOpen(false)}
           >
             {siteConfig.name}
           </Link>
 
           <nav aria-label="Principal" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-6">
               {navigationItems.map((item) => {
                 const active = isActivePath(pathname, item.href)
                 return (
@@ -62,8 +55,8 @@ export default function Header() {
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'link-underline py-1 text-sm transition-colors duration-200',
-                        active ? 'text-ink [background-size:100%_1px]' : 'text-mute hover:text-ink',
+                        'link-underline py-1 text-sm font-medium transition-colors duration-500 ease-fluid',
+                        active ? 'text-ink' : 'text-mute hover:text-ink',
                       )}
                     >
                       {item.label}
@@ -77,13 +70,27 @@ export default function Header() {
           <button
             ref={toggleRef}
             type="button"
-            className="-mr-2 rounded-md p-2 text-ink lg:hidden"
+            className="relative grid size-10 place-items-center rounded-full text-ink transition-colors duration-500 ease-fluid hover:bg-surface active:scale-[0.98] lg:hidden"
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
-            {isMenuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            {/* Dos líneas que rotan y se cruzan en una X; nunca desaparecen */}
+            <span
+              aria-hidden="true"
+              className={cn(
+                'absolute h-0.5 w-5 rounded-full bg-current transition-transform duration-700 ease-fluid',
+                isMenuOpen ? 'translate-y-0 rotate-45' : '-translate-y-1',
+              )}
+            />
+            <span
+              aria-hidden="true"
+              className={cn(
+                'absolute h-0.5 w-5 rounded-full bg-current transition-transform duration-700 ease-fluid',
+                isMenuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-1',
+              )}
+            />
           </button>
         </div>
       </header>

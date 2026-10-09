@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { PenLine } from "lucide-react";
+import { PenNibIcon as PenLine } from "@phosphor-icons/react/dist/ssr";
 import { blogPostsData } from "@/lib/data";
 import { siteConfig } from "@/config/site";
 import { Reveal } from "@/components/ui/Reveal";
@@ -25,7 +25,7 @@ export const metadata: Metadata = pageMetadata({
  */
 export default function BlogPage() {
   return (
-    <section className="container-page pb-24 pt-28 sm:pb-32 sm:pt-40">
+    <section className="container-page pb-24 pt-12 sm:pb-24 sm:pt-20">
       <div className="animate-rise">
         <SectionHeading as="h1" eyebrow="Blog" title="Blog" />
       </div>
@@ -36,8 +36,8 @@ export default function BlogPage() {
             <PenLine aria-hidden="true" className="size-5" />
           </span>
           <div className="max-w-xl">
-            <h2 className="font-serif text-2xl font-medium sm:text-3xl">Próximamente</h2>
-            <p className="mt-3 text-lg leading-relaxed text-body">
+            <h2 className="text-2xl font-medium sm:text-3xl">Próximamente</h2>
+            <p className="mt-3 text-lg text-body">
               Estoy preparando mi primer artículo. Mientras tanto, puedes conocer mi documento de investigación o
               seguirme en LinkedIn.
             </p>

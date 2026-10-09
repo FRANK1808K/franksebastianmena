@@ -1,18 +1,21 @@
 'use client';
 
 import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
+import { EASE_FLUID } from '@/lib/motion';
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-const OFFSET = 16;
+/** translate-y-16 blur-md opacity-0 → translate-y-0 blur-0 opacity-100 */
+const hidden = { opacity: 0, y: 64, filter: 'blur(12px)' };
+const shown = { opacity: 1, y: 0, filter: 'blur(0px)' };
+const DURATION = 0.9;
 
-/** Entrada suave al hacer scroll: fade + 16 px, una sola vez. */
+/** Entrada pesada al hacer scroll (whileInView, sin listeners de scroll), una sola vez. */
 export function Reveal({ delay = 0, ...props }: HTMLMotionProps<'div'> & { delay?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: OFFSET }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={hidden}
+      whileInView={shown}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay, ease: EASE }}
+      transition={{ duration: DURATION, delay, ease: EASE_FLUID }}
       {...props}
     />
   );
@@ -20,12 +23,12 @@ export function Reveal({ delay = 0, ...props }: HTMLMotionProps<'div'> & { delay
 
 const listVariants: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: OFFSET },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+  hidden,
+  visible: { ...shown, transition: { duration: DURATION, ease: EASE_FLUID } },
 };
 
 /** Contenedor de entradas escalonadas para listas y tarjetas. */

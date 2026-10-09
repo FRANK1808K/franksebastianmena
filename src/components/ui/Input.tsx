@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 const fieldStyles = cn(
   'w-full rounded-md border border-line-strong bg-canvas px-3 text-ink placeholder:text-mute',
-  'transition-colors duration-200 hover:border-mute focus-visible:border-accent',
+  'transition-colors duration-500 ease-fluid hover:border-mute focus-visible:border-accent',
   'focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-accent',
   'disabled:cursor-not-allowed disabled:opacity-50',
 );
@@ -35,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const fieldId = id ?? autoId;
     const errorId = `${fieldId}-error`;
     return (
-      <div className="flex w-full flex-col gap-1.5">
+      <div className="flex w-full flex-col gap-2">
         <Label htmlFor={fieldId} required={props.required}>{label}</Label>
         <input
           ref={ref}
@@ -64,14 +64,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const fieldId = id ?? autoId;
     const errorId = `${fieldId}-error`;
     return (
-      <div className="flex w-full flex-col gap-1.5">
+      <div className="flex w-full flex-col gap-2">
         <Label htmlFor={fieldId} required={props.required}>{label}</Label>
         <textarea
           ref={ref}
           id={fieldId}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className={cn(fieldStyles, 'min-h-32 resize-y py-2.5', error && 'border-danger', className)}
+          className={cn(fieldStyles, 'min-h-32 resize-y py-2', error && 'border-danger', className)}
           {...props}
         />
         <FieldError id={errorId} message={error} />

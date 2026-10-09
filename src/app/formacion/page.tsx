@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { pageMetadata } from "@/lib/seo";
-import { GraduationCap } from "lucide-react";
+import { GraduationCapIcon as GraduationCap } from "@phosphor-icons/react/dist/ssr";
 import { credentialsData, profileData } from "@/lib/data";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -25,7 +26,7 @@ export default function FormacionPage() {
 
   return (
     <>
-      <section className="container-page pb-14 pt-28 sm:pb-16 sm:pt-40">
+      <section className="container-page pb-12 pt-12 sm:pb-16 sm:pt-20">
         <div className="animate-rise">
           <SectionHeading
             as="h1"
@@ -36,18 +37,18 @@ export default function FormacionPage() {
         </div>
 
         {/* Pregrado */}
-        <Reveal delay={0.08} className="mt-12">
+        <div className="animate-rise mt-12" style={{ "--delay": "100ms" } as CSSProperties}>
           <div className="flex flex-col gap-4 rounded-xl bg-surface p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-8">
             <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
               <GraduationCap aria-hidden="true" className="size-6" />
             </span>
             <div className="flex-1">
               <p className="text-sm text-mute">Pregrado · {degree.period}</p>
-              <h2 className="font-serif text-2xl font-medium">{degree.title}</h2>
+              <h2 className="text-2xl font-medium">{degree.title}</h2>
               <p className="text-body">{degree.organization}</p>
             </div>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {groups.map(({ kind, title, id }) => {
@@ -55,9 +56,9 @@ export default function FormacionPage() {
         if (items.length === 0) return null;
         return (
           <section key={kind} aria-labelledby={`${id}-title`} className="border-t border-line">
-            <div className="container-page py-14 sm:py-16">
+            <div className="container-page py-12 sm:py-16">
               <Reveal className="mb-8 flex items-baseline gap-3">
-                <h2 id={`${id}-title`} className="font-serif text-2xl font-medium sm:text-3xl">
+                <h2 id={`${id}-title`} className="text-2xl font-medium sm:text-3xl">
                   {title}
                 </h2>
                 <span className="text-sm text-mute">
@@ -65,7 +66,7 @@ export default function FormacionPage() {
                   <span className="sr-only"> {items.length === 1 ? "elemento" : "elementos"}</span>
                 </span>
               </Reveal>
-              <Stagger as="ul" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {items.map((credential) => (
                   <StaggerItem as="li" key={`${credential.issuer}-${credential.title}`}>
                     <CredentialCard credential={credential} />

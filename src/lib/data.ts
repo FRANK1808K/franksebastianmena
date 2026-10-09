@@ -270,12 +270,6 @@ export const projectsData: Project[] = [
       "Supabase (esquema preparado, aún sin conectar)",
     ],
     repositoryUrl: "https://github.com/FRANK1808K/iuriscode-web",
-    image: {
-      src: "/images/projects/sitio-web.webp",
-      alt: "Página de inicio de este sitio vista en un navegador de escritorio y en un teléfono",
-      width: 2400,
-      height: 1500,
-    },
   },
 ];
 

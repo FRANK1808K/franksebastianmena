@@ -3,7 +3,7 @@ import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { profileData } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
-/** Rejilla asimétrica: la primera área ocupa la columna izquierda completa. */
+/** Rejilla asimétrica: la primera área ocupa la columna izquierda completa (una fila por cada área restante). */
 export default function ValueProposition() {
   return (
     <section aria-labelledby="areas-title">
@@ -21,7 +21,7 @@ export default function ValueProposition() {
                 key={area.title}
                 className={cn(
                   'card card-hover flex flex-col gap-4 p-6 sm:p-8',
-                  lead && 'lg:row-span-2 lg:justify-end lg:p-12',
+                  lead && 'lg:row-span-3 lg:justify-end lg:p-12',
                 )}
               >
                 <span aria-hidden="true" className="text-sm font-semibold tabular-nums text-accent">

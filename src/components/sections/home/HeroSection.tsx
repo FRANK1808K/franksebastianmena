@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import { DownloadSimpleIcon as DownloadSimple } from '@phosphor-icons/react/dist/ssr';
 import { profileData } from '@/lib/data';
 import { siteConfig } from '@/config/site';
 import { ButtonLink } from '@/components/ui/Button';
@@ -49,20 +50,34 @@ export default function HeroSection() {
             <ButtonLink href="/sobre-mi" size="lg" arrow>
               Ver mi trayectoria
             </ButtonLink>
-            <a
-              href={siteConfig.links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline text-sm font-semibold text-ink"
-            >
-              LinkedIn
-            </a>
+            <div className="flex items-center gap-6">
+              <a
+                href={profileData.cvUrl}
+                download
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-ink"
+              >
+                <DownloadSimple
+                  aria-hidden="true"
+                  className="size-4 transition-transform duration-500 ease-fluid group-hover:translate-y-0.5"
+                />
+                <span className="link-underline">Hoja de vida (PDF)</span>
+              </a>
+              <a
+                href={siteConfig.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-sm font-semibold text-ink"
+              >
+                LinkedIn
+              </a>
+            </div>
           </div>
 
           {/* Prueba junto a la promesa: solo hechos verificados del perfil */}
           <p className="animate-rise mt-10 max-w-170 text-sm text-mute" style={delay(5)}>
-            Coautor de un capítulo publicado por Pireo Editorial (2026) · Formación con la OEA, la Universidad de
-            Harvard y la Universidad de Antioquia
+            Publicaciones con Pireo Editorial y WWF Colombia · Mención de honor en el Concurso Bienal de Ensayos Juan
+            Jaramillo de Dejusticia (2026) · Formación con la OEA, la Universidad de Harvard y la Universidad de
+            Antioquia
           </p>
         </div>
       </div>

@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { pageMetadata } from "@/lib/seo";
 import type { ReactNode } from "react";
-import { EnvelopeSimpleIcon as Mail, MapPinIcon as MapPin } from "@phosphor-icons/react/dist/ssr";
+import {
+  DownloadSimpleIcon as Download,
+  EnvelopeSimpleIcon as Mail,
+  GraduationCapIcon as GraduationCap,
+  MapPinIcon as MapPin,
+} from "@phosphor-icons/react/dist/ssr";
+import { profileData } from "@/lib/data";
 import { siteConfig } from "@/config/site";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GitHubIcon, LinkedInIcon, WhatsAppIcon } from "@/components/ui/SocialIcons";
@@ -77,6 +83,14 @@ export default function ContactPage() {
               </li>
               <li>
                 <Channel
+                  icon={<GraduationCap aria-hidden="true" className="size-4" />}
+                  label="Correo institucional"
+                  value={siteConfig.author.institutionalEmail}
+                  href={siteConfig.links.institutionalEmail}
+                />
+              </li>
+              <li>
+                <Channel
                   icon={<WhatsAppIcon size={16} />}
                   label="WhatsApp"
                   value={siteConfig.author.phoneDisplay}
@@ -117,6 +131,15 @@ export default function ContactPage() {
                 </a>
               </li>
             </ul>
+
+            <h2 className="eyebrow mb-4 mt-12">Hoja de vida</h2>
+            <a href={profileData.cvUrl} download className="group inline-flex items-center gap-2 font-semibold text-ink">
+              <Download
+                aria-hidden="true"
+                className="size-4 transition-transform duration-500 ease-fluid group-hover:translate-y-0.5"
+              />
+              <span className="link-underline">Descargar en PDF</span>
+            </a>
           </div>
 
           <div className="animate-rise" style={{ "--delay": "200ms" } as CSSProperties}>

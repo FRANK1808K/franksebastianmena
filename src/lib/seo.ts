@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
-import { credentialsData, profileData, publicationData } from "@/lib/data";
+import { credentialsData, featuredVideo, profileData, publicationData, recognitionsData } from "@/lib/data";
 
 const ogImage = {
   url: siteConfig.ogImage,
@@ -65,7 +65,7 @@ export const personJsonLd = {
   name: profileData.fullName,
   alternateName: "Frank Sebastián Mena García",
   url: `${siteConfig.url}/`,
-  image: `${siteConfig.url}/images/profile.jpg`,
+  image: `${siteConfig.url}/images/retrato.jpg`,
   description: profileData.headline,
   email: siteConfig.author.email,
   address: {
@@ -74,13 +74,23 @@ export const personJsonLd = {
     addressRegion: "Chocó",
     addressCountry: "CO",
   },
+  alumniOf: utch,
   affiliation: [utch, { "@type": "Organization", name: "Fundación A+" }],
-  hasOccupation: profileData.experience.map((job) => ({
-    "@type": "Occupation",
-    name: job.title,
-    occupationLocation: { "@type": "City", name: "Quibdó" },
-  })),
+  // Solo los cargos vigentes
+  hasOccupation: profileData.experience
+    .filter((job) => job.period.includes("actualidad"))
+    .map((job) => ({
+      "@type": "Occupation",
+      name: job.title,
+      occupationLocation: { "@type": "City", name: "Quibdó" },
+    })),
   knowsAbout: profileData.skills.flatMap((group) => group.items),
+  knowsLanguage: profileData.languages.map((lang) => ({
+    "@type": "Language",
+    name: lang.name,
+    alternateName: lang.code,
+  })),
+  award: recognitionsData.map((r) => `${r.title}, ${r.contest} (${r.organization}, ${r.year})`),
   hasCredential: credentialsData.map((c) => ({
     "@type": "EducationalOccupationalCredential",
     name: c.title,
@@ -88,6 +98,20 @@ export const personJsonLd = {
     ...(c.credentialUrl ? { url: c.credentialUrl } : {}),
   })),
   sameAs: [siteConfig.links.linkedin, siteConfig.links.github],
+};
+
+/** Video de la portada (intervención en ICON·S). */
+export const videoJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: featuredVideo.title,
+  description: featuredVideo.description,
+  thumbnailUrl: `${siteConfig.url}${featuredVideo.poster}`,
+  contentUrl: `${siteConfig.url}${featuredVideo.src}`,
+  uploadDate: featuredVideo.recordedAt,
+  duration: featuredVideo.duration,
+  inLanguage: "es",
+  actor: { "@type": "Person", "@id": `${siteConfig.url}/#person`, name: profileData.fullName },
 };
 
 /** Capítulo de libro de la sección Investigación. */

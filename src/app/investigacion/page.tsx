@@ -4,20 +4,28 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import { chapterJsonLd, jsonLdScript, pageMetadata } from "@/lib/seo";
 import { BookOpenIcon as BookOpen, DownloadSimpleIcon as Download } from "@phosphor-icons/react/dist/ssr";
-import { profileData, publicationData } from "@/lib/data";
+import { otherPublicationsData, profileData, publicationData } from "@/lib/data";
 import { siteConfig } from "@/config/site";
-import { Reveal } from "@/components/ui/Reveal";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink, buttonStyles } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { CopyButton } from "@/components/ui/CopyButton";
+import type { PublicationEntry } from "@/types";
 
 const pub = publicationData;
 
 export const metadata: Metadata = pageMetadata({
   title: "Investigación",
   description:
-    `«${pub.title}», capítulo de ${pub.authors.join(", ")} en ${pub.book.title} (${pub.book.publisher}, ${pub.book.year}).`,
+    `«${pub.title}», capítulo de ${pub.authors.join(", ")} en ${pub.book.title} (${pub.book.publisher}, ${pub.book.year}). También: Cuadernos de Derecho Ambiental con WWF Colombia y artículos en evaluación.`,
   path: "/investigacion/",
 });
+
+const publicationGroups: { status: PublicationEntry["status"]; title: string }[] = [
+  { status: "Publicado", title: "Publicados" },
+  { status: "En evaluación", title: "En evaluación" },
+];
 
 /** El PDF se enlaza solo si el archivo existe en /public al generar el sitio. */
 const hasPdf = existsSync(path.join(process.cwd(), "public", pub.pdfUrl));
@@ -137,6 +145,9 @@ export default function ResearchPage() {
             <blockquote className="max-w-prose rounded-lg bg-surface p-4 text-sm text-body">
               {pub.citation}
             </blockquote>
+            <div className="mt-4">
+              <CopyButton text={pub.citation} label="Copiar cita" />
+            </div>
 
             <p className="mt-6 text-sm text-mute">
               Obra publicada bajo licencia{" "}
@@ -154,6 +165,59 @@ export default function ResearchPage() {
         </div>
       </section>
 
+      {/* Otras publicaciones */}
+      <section aria-labelledby="more-title" className="border-t border-line">
+        <div className="container-page py-16 sm:py-20">
+          <Reveal>
+            <SectionHeading
+              id="more-title"
+              eyebrow="Más publicaciones"
+              title="Cuadernos y artículos"
+              subtitle="Cuadernos de Derecho Ambiental con WWF Colombia y artículos en proceso de evaluación."
+              className="mb-12"
+            />
+          </Reveal>
+
+          {publicationGroups.map(({ status, title }) => {
+            const items = otherPublicationsData.filter((entry) => entry.status === status);
+            if (items.length === 0) return null;
+            return (
+              <div key={status} className="mt-12 first:mt-0">
+                <h3 className="mb-2 text-sm font-semibold text-mute">{title}</h3>
+                <Stagger as="ul" className="divide-y divide-line border-y border-line">
+                  {items.map((entry) => (
+                    <StaggerItem
+                      as="li"
+                      key={entry.title}
+                      className="grid gap-2 py-6 md:grid-cols-[minmax(0,1fr)_auto] md:gap-12"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-sm text-mute">{entry.kind}</p>
+                        <h4 className="mt-1 max-w-3xl text-lg font-medium tracking-tight">{entry.title}</h4>
+                        {entry.authors && (
+                          <p className="mt-2 text-sm text-body">
+                            <span className="sr-only">Autores: </span>
+                            {joinNames(entry.authors)}
+                          </p>
+                        )}
+                        {entry.publisher && <p className="mt-2 text-sm text-body">{entry.publisher}</p>}
+                      </div>
+                      <div className="md:text-right">
+                        {entry.year ? (
+                          <p className="text-sm tabular-nums text-mute">{entry.year}</p>
+                        ) : (
+                          <Badge variant="accent">{entry.status}</Badge>
+                        )}
+                      </div>
+                    </StaggerItem>
+                  ))}
+                </Stagger>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* Contexto */}
       {research && (
         <section aria-labelledby="context-title" className="border-t border-line bg-surface">
@@ -163,6 +227,7 @@ export default function ResearchPage() {
               <p className="text-sm text-mute">{research.period}</p>
               <h3 className="mt-1 text-2xl font-medium">{research.title}</h3>
               <p className="text-lg text-body">{research.organization}</p>
+              {research.description && <p className="mt-4 max-w-prose text-body">{research.description}</p>}
             </div>
           </Reveal>
         </section>

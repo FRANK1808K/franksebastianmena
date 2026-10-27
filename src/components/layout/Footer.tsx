@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { footerItems } from '@/config/navigation'
 import { siteConfig } from '@/config/site'
-import { blogPostsData } from '@/lib/data'
+import { blogPostsData, profileData } from '@/lib/data'
 import { Headline } from '@/components/ui/Headline'
 
 const contactLinks = [
@@ -9,6 +9,7 @@ const contactLinks = [
   { label: `WhatsApp ${siteConfig.author.phoneDisplay}`, href: siteConfig.links.whatsapp },
   { label: 'LinkedIn', href: siteConfig.links.linkedin },
   { label: 'GitHub', href: siteConfig.links.github },
+  { label: 'Hoja de vida (PDF)', href: profileData.cvUrl, download: true },
 ]
 
 /** Una sección vacía resta: el blog solo se enlaza cuando tenga artículos. */
@@ -52,6 +53,7 @@ export function Footer() {
                     href={link.href}
                     className="link-underline text-sm text-body hover:text-ink"
                     {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    {...(link.download ? { download: true } : {})}
                   >
                     {link.label}
                   </a>

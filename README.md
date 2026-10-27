@@ -5,16 +5,16 @@ Reúne su perfil, su formación, su investigación y un canal de contacto.
 
 > «Traduzco entre el derecho, las comunidades y la tecnología.»
 
-Es un proyecto personal en desarrollo. Todo el contenido proviene de datos verificados (perfil de LinkedIn y publicaciones); el sitio no incluye información de relleno.
+Es un proyecto personal en desarrollo. Todo el contenido proviene de datos verificados (perfil de LinkedIn, hoja de vida y publicaciones); el sitio no incluye información de relleno.
 
 ## Secciones
 
 | Ruta | Contenido |
 |---|---|
-| `/` | Frase de valor, áreas de trabajo y cargos actuales |
-| `/sobre-mi/` | Biografía, experiencia, educación y habilidades |
+| `/` | Frase de valor, áreas de trabajo, video de la intervención en ICON·S con eventos y reconocimientos, y cargos actuales |
+| `/sobre-mi/` | Biografía, experiencia, educación, reconocimientos, eventos, habilidades, idiomas y hoja de vida en PDF |
 | `/formacion/` | Programas, certificaciones y cursos (OEA, Harvard, UdeA, U. de Cartagena, UNESCO, ICON·S, SENA, UTCH) |
-| `/investigacion/` | Capítulo «¿Quién decide los derechos de la naturaleza?» (Pireo Editorial, 2026), en coautoría con Lisneider Hinestroza Cuesta y Nelsy Moreno Ibargüen |
+| `/investigacion/` | Capítulo «¿Quién decide los derechos de la naturaleza?» (Pireo Editorial, 2026), en coautoría con Lisneider Hinestroza Cuesta y Nelsy Moreno Ibargüen, más los Cuadernos de Derecho Ambiental de WWF Colombia y los artículos en evaluación |
 | `/proyectos/` | Este sitio como caso: problema, alcance y stack |
 | `/blog/` | Próximamente (no indexado mientras no haya artículos) |
 | `/contacto/` | Formulario que envía el mensaje a tu correo (Web3Forms), con alternativa por WhatsApp |
@@ -42,10 +42,18 @@ Es un proyecto personal en desarrollo. Todo el contenido proviene de datos verif
 
 Todo el contenido está en **`src/lib/data.ts`**:
 
-- `profileData`: biografía (Markdown), áreas, experiencia, educación y habilidades.
+- `profileData`: biografía (Markdown), fotos, hoja de vida, áreas, experiencia, educación, habilidades e idiomas.
+- `recognitionsData` y `participationsData`: reconocimientos y eventos.
+- `featuredVideo`: el video de la portada (archivo en `public/videos/`).
 - `credentialsData`: formación y certificaciones. Añade `credentialUrl` para mostrar «Ver credencial».
 - `publicationData`: datos del capítulo, resumen y cita.
+- `otherPublicationsData`: resto de publicaciones y artículos en evaluación.
 - `projectsData` y `blogPostsData`.
+
+### Video y hoja de vida
+
+- El video se sirve desde el propio sitio (`public/videos/icons-2026.mp4`, H.264 con `faststart`, 1,8 MB) y no se descarga hasta que alguien pulsa reproducir. Para cambiarlo, reemplaza el archivo y su póster (`icons-2026-poster.jpg`) y actualiza `featuredVideo`.
+- La hoja de vida está en `public/docs/hoja-de-vida-frank-sebastian-mena.pdf`. Para actualizarla, reemplaza el PDF con el mismo nombre.
 
 Datos de contacto, palabras clave y URL del sitio: **`src/config/site.ts`**. Menú: **`src/config/navigation.ts`**.
 
@@ -124,8 +132,9 @@ src/
 ├── lib/            # Datos, SEO (metadatos y JSON-LD) y utilidades
 └── types/          # Tipos de TypeScript
 public/
-├── images/         # Retrato y og-image.png
-└── docs/           # PDF del capítulo
+├── images/         # Retrato, foto de la biografía y og-image.png
+├── videos/         # Video de la portada y su póster
+└── docs/           # PDF del capítulo y hoja de vida
 ```
 
 ## Autor

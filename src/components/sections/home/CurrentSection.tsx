@@ -4,7 +4,9 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Reveal, Stagger, StaggerItem } from '@/components/ui/Reveal';
 import { profileData } from '@/lib/data';
 
-/** Cargos actuales, tomados de la experiencia real del perfil. */
+/** Solo los cargos vigentes de la experiencia real del perfil. */
+const currentRoles = profileData.experience.filter((job) => job.period.includes('actualidad'));
+
 export default function CurrentSection() {
   return (
     <section aria-labelledby="current-title" className="border-t border-line">
@@ -21,7 +23,7 @@ export default function CurrentSection() {
         </Reveal>
 
         <Stagger as="ul" className="divide-y divide-line border-y border-line">
-          {profileData.experience.map((job) => (
+          {currentRoles.map((job) => (
             <StaggerItem as="li" key={job.organization} className="flex flex-col gap-1 py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
               <div>
                 <h3 className="text-xl font-medium">{job.title}</h3>

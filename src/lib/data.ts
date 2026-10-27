@@ -2,47 +2,65 @@ import type {
   Profile,
   Credential,
   Publication,
+  PublicationEntry,
   Project,
   BlogPost,
+  Recognition,
+  Participation,
+  FeaturedVideo,
 } from "@/types";
 
 // ============================================================
-// Fuente única: BRIEF-REDISENO.md (perfil de LinkedIn).
+// Fuentes: perfil de LinkedIn y hoja de vida (ES, v3, oct. 2026).
 // No agregues aquí nada que no esté verificado.
 // ============================================================
 
 export const profileData: Profile = {
   fullName: "Frank Sebastián Mena",
-  headline: "Estudiante de Derecho | Derechos humanos y tecnología | Python e IA",
+  headline: "Estudiante de Derecho | Derecho constitucional y derechos humanos | Python e IA",
   valueStatement: "Traduzco entre el derecho, las comunidades y la tecnología.",
   tagline:
     "Estudio los derechos de los pueblos étnicos y de la naturaleza, y uso la tecnología para que lleguen a quienes los necesitan.",
   location: "Quibdó, Chocó, Colombia",
-  avatarUrl: "/images/profile.webp",
-  bio: `Soy estudiante de Derecho en la **Universidad Tecnológica del Chocó**, en Quibdó. Me interesa el punto donde se cruzan los derechos humanos, los derechos de los pueblos étnicos y el ambiente, y la tecnología.
+  avatarUrl: "/images/retrato.webp",
+  candidPhoto: {
+    src: "/images/frank-taller.webp",
+    alt: "Frank Sebastián Mena sonríe durante una sesión de trabajo en grupo, con una tableta en las manos",
+    width: 1000,
+    height: 1244,
+  },
+  cvUrl: "/docs/hoja-de-vida-frank-sebastian-mena.pdf",
+  bio: `Estudio décimo semestre de Derecho en la **Universidad Tecnológica del Chocó «Diego Luis Córdoba»**, en Quibdó, y espero graduarme en julio de 2027. Mi trabajo se concentra en el derecho constitucional, los derechos humanos y los derechos étnicos, territoriales y ambientales.
 
-Desde enero de 2025 soy **asistente de investigación** en la Universidad Tecnológica del Chocó y, desde febrero de 2026, **aprendiz en la Fundación A+**, donde apoyo la gestión de proyectos y la labor directiva.
+Desde 2024 soy **asistente de investigación** del Grupo de Investigación Derecho, Sociedad y Medio Ambiente. Allí investigo con la Dra. Lisneider Hinestroza Cuesta los derechos de la naturaleza, los derechos étnicos y territoriales y el cambio climático en el Pacífico colombiano. Desde febrero de 2026 soy **aprendiz en la Fundación A+**, donde me formo en computación en la nube, programación, desarrollo web y ciencia de datos.
 
-Me he formado en el Sistema Interamericano de Derechos Humanos con la OEA, en estudios afrolatinoamericanos con la Universidad de Harvard y en inteligencia artificial y Python con la Universidad de Antioquia. También estudié la Ley 70 de 1993 y el Acuerdo de Escazú.
+Tengo experiencia en investigación jurídica, litigio estratégico y acompañamiento a comunidades víctimas del conflicto armado y a población con necesidad de protección internacional; en 2025 hice ese acompañamiento como voluntario de la Corporación Opción Legal.
 
-Con Lisneider Hinestroza Cuesta y Nelsy Moreno Ibargüen soy coautor del capítulo *¿Quién decide los derechos de la naturaleza?*, publicado en 2026 por Pireo Editorial en el libro *Derechos de la Naturaleza desde el Mediterráneo*.
+Me he formado en el Sistema Interamericano de Derechos Humanos con la OEA, en estudios afrolatinoamericanos con la Universidad de Harvard y en inteligencia artificial con Python en la Universidad de Antioquia y la Universidad de Cartagena. Redacto memoriales, conceptos jurídicos, capítulos de libro y artículos científicos, e investigo en español, inglés y portugués.
+
+He representado a Colombia y a mi universidad en escenarios nacionales e internacionales sobre justicia, ambiente y juventud. En 2025 fui delegado nacional del Ministerio de Ambiente en el 3.er Foro de Jóvenes IberoMAB de la UNESCO, en Bahía (Brasil).
 
 Este sitio, construido con Next.js y TypeScript, es mi proyecto personal en desarrollo.`,
   focusAreas: [
     {
-      title: "Derechos humanos, étnicos y ambientales",
+      title: "Derecho constitucional y derechos humanos",
       description:
-        "Sistema Interamericano, Ley 70 de 1993, Acuerdo de Escazú y la pregunta por los derechos de la naturaleza.",
+        "Derecho público, Sistema Interamericano (medidas cautelares ante la CIDH y estándares interamericanos con la OEA), justicia transicional y litigio estratégico.",
     },
     {
-      title: "IA y Python",
+      title: "Derechos étnicos, territoriales y ambientales",
       description:
-        "Bootcamp de Inteligencia Artificial en la Universidad de Antioquia: Python y aprendizaje automático, aplicados a problemas jurídicos y cívicos.",
+        "Ley 70 de 1993, Acuerdo de Escazú, derechos de la naturaleza y cambio climático en el Pacífico colombiano.",
     },
     {
-      title: "Investigación",
+      title: "Investigación jurídica",
       description:
-        "Asistente de investigación en la Universidad Tecnológica del Chocó desde 2025 y coautor de un capítulo sobre los derechos de la naturaleza y el río Atrato (Pireo Editorial, 2026).",
+        "Asistente de investigación en la Universidad Tecnológica del Chocó desde 2024. Coautor de un capítulo en Pireo Editorial y de Cuadernos de Derecho Ambiental de WWF Colombia.",
+    },
+    {
+      title: "Tecnología cívica: Python e IA",
+      description:
+        "Python, aprendizaje automático y ciencia de datos (Universidad de Antioquia, Universidad de Cartagena y Fundación A+), aplicados a problemas jurídicos y cívicos.",
     },
   ],
   experience: [
@@ -52,20 +70,29 @@ Este sitio, construido con Next.js y TypeScript, es mi proyecto personal en desa
       period: "Feb. 2026 – actualidad",
       location: "Quibdó · Presencial · Jornada completa",
       description:
-        "Formación práctica y profesional, gestión de proyectos y apoyo directivo.",
+        "Formación en tecnología: computación en la nube, programación, desarrollo y despliegue web, y análisis y ciencia de datos.",
     },
     {
       title: "Asistente de investigación",
-      organization: "Universidad Tecnológica del Chocó",
-      period: "Ene. 2025 – actualidad",
-      description: "Investigación científica.",
+      organization: "Grupo de Investigación Derecho, Sociedad y Medio Ambiente · Universidad Tecnológica del Chocó",
+      period: "2024 – actualidad",
+      description:
+        "Investigación jurídica con la Dra. Lisneider Hinestroza Cuesta sobre derechos de la naturaleza, derechos étnicos y territoriales y cambio climático en el Pacífico colombiano. Revisión de jurisprudencia y literatura, y coautoría de publicaciones académicas.",
+    },
+    {
+      title: "Voluntariado",
+      organization: "Corporación Opción Legal",
+      period: "2025",
+      description: "Orientación y acompañamiento jurídico a población con necesidad de protección internacional.",
     },
   ],
   education: [
     {
       title: "Derecho",
-      organization: "Universidad Tecnológica del Chocó",
+      organization: "Universidad Tecnológica del Chocó «Diego Luis Córdoba»",
       period: "Ene. 2021 – jul. 2027 (previsto)",
+      description:
+        "Décimo semestre. Énfasis en investigación jurídica, derechos humanos, derecho ambiental e inteligencia artificial.",
     },
     {
       title: "Programa de Capacitación en Democracia y Tecnología, «Programadores para la Paz»",
@@ -85,7 +112,7 @@ Este sitio, construido con Next.js y TypeScript, es mi proyecto personal en desa
     },
     {
       title: "Programa MaB y Red Mundial de Reservas de Biosfera",
-      organization: "Universidad para la Cooperación Internacional / UNESCO",
+      organization: "Universidad para la Cooperación Internacional (Costa Rica) / UNESCO",
       period: "Ago. – nov. 2024",
     },
   ],
@@ -93,29 +120,98 @@ Este sitio, construido con Next.js y TypeScript, es mi proyecto personal en desa
     {
       category: "Derecho",
       items: [
-        "Derechos humanos",
-        "Sistema Interamericano",
+        "Derecho público y constitucional",
+        "Derechos humanos y Sistema Interamericano",
         "Derecho ambiental",
         "Derechos de los pueblos étnicos (Ley 70, Escazú)",
-        "Derecho público y constitucional",
+        "Justicia transicional",
         "Investigación jurídica",
-        "Redacción académica",
+      ],
+    },
+    {
+      category: "Competencias",
+      items: [
+        "Redacción de memoriales y conceptos jurídicos",
+        "Investigación y análisis jurisprudencial",
+        "Trabajo con comunidades étnicas y territoriales",
+        "Gestión de proyectos",
+        "Herramientas ofimáticas",
       ],
     },
     {
       category: "Tecnología",
       items: [
         "Python",
-        "IA / aprendizaje automático",
-        "Desarrollo web (Next.js, TypeScript, Supabase)",
-        "Tecnología cívica",
+        "IA y aprendizaje automático",
+        "Análisis y ciencia de datos",
+        "Desarrollo web (Next.js, React, TypeScript)",
+        "Tecnología cívica y LegalTech",
       ],
     },
     {
-      category: "Gestión",
-      items: ["Gestión de proyectos"],
+      category: "Manuales de citación",
+      items: ["Bluebook", "APA", "ICONTEC", "Oñati", "Chicago", "Harvard"],
     },
   ],
+  languages: [
+    { name: "Español", code: "es", level: "Nativo" },
+    { name: "Inglés", code: "en", level: "Lectura e investigación" },
+    { name: "Portugués", code: "pt", level: "Lectura e investigación" },
+  ],
+};
+
+// ============================================================
+// Reconocimientos y participación en eventos (hoja de vida)
+// ============================================================
+
+export const recognitionsData: Recognition[] = [
+  {
+    title: "Mención de honor",
+    contest: "Concurso Bienal de Ensayos Juan Jaramillo",
+    organization: "Dejusticia",
+    year: 2026,
+  },
+  {
+    title: "Mejor ensayo",
+    contest: "Concurso «Reescribiendo el Derecho»",
+    organization: "Ilex Acción Jurídica",
+    year: 2025,
+  },
+];
+
+export const participationsData: Participation[] = [
+  {
+    title: "Seminario Nacional ICON·S, ediciones V, VI, VII y VIII",
+    role: "Participante",
+    organization: "Sociedad Internacional de Derecho Público, capítulo Colombia",
+    period: "2023 – 2026",
+  },
+  {
+    title: "3.er Foro de Jóvenes IberoMAB",
+    role: "Delegado nacional del Ministerio de Ambiente",
+    organization: "Programa MaB de la UNESCO",
+    period: "2025",
+    location: "Bahía, Brasil",
+  },
+  {
+    title: "Justicia constitucional en contextos de conflicto: aprendizajes de la Sentencia T-025 de 2004",
+    role: "Participante",
+    organization: "Corte Constitucional de Colombia",
+    period: "2024",
+  },
+];
+
+/** Video propio: intervención en el panel del VIII Seminario Nacional ICON·S. */
+export const featuredVideo: FeaturedVideo = {
+  title: "Intervención en el VIII Seminario Nacional ICON·S",
+  description:
+    "Fragmento de mi intervención como panelista en el VIII Seminario Nacional de la Sociedad Internacional de Derecho Público (ICON·S), capítulo Colombia, en octubre de 2026.",
+  src: "/videos/icons-2026.mp4",
+  poster: "/videos/icons-2026-poster.jpg",
+  width: 576,
+  height: 1024,
+  duration: "PT16S",
+  recordedAt: "2026-10-23",
 };
 
 // ============================================================
@@ -151,7 +247,7 @@ export const credentialsData: Credential[] = [
     kind: "Certificación",
   },
   {
-    title: "Aplicación de Estándares para el Poder Judicial, Ed. 7",
+    title: "Aplicación de Estándares Interamericanos para el Poder Judicial, Ed. 7",
     issuer: "Organización de los Estados Americanos (OEA)",
     date: "Jul. 2025",
     kind: "Certificación",
@@ -161,7 +257,8 @@ export const credentialsData: Credential[] = [
     issuer: "Universidad Tecnológica del Chocó",
     date: "Jun. 2025",
     kind: "Curso",
-    description: "Curso de formación e investigación.",
+    description:
+      "Formación e investigación sobre derechos étnicos y territoriales, acceso a la información y participación ambiental.",
   },
   {
     title: "Programa MaB y Red Mundial de Reservas de Biosfera",
@@ -194,10 +291,28 @@ export const credentialsData: Credential[] = [
     kind: "Curso",
   },
   {
+    title: "Manejo básico de herramientas ofimáticas",
+    issuer: "SENA",
+    date: "2024",
+    kind: "Curso",
+  },
+  {
     title: "VI Seminario Nacional",
     issuer: "ICON·S, Sociedad Internacional de Derecho Público, capítulo Colombia",
     date: "Oct. 2024",
     kind: "Certificación",
+  },
+  {
+    title: "Redacción de artículos científicos",
+    issuer: "Universidad Tecnológica del Chocó",
+    date: "2023",
+    kind: "Curso",
+  },
+  {
+    title: "Justicia transicional, Estado social de derecho y medio ambiente",
+    issuer: "Universidad Tecnológica del Chocó",
+    date: "2023",
+    kind: "Curso",
   },
 ];
 
@@ -242,6 +357,39 @@ export const publicationData: Publication = {
   externalUrl: undefined,
 };
 
+/** Resto de publicaciones de la hoja de vida, con los datos tal como aparecen allí. */
+export const otherPublicationsData: PublicationEntry[] = [
+  {
+    title:
+      "Cuaderno de Derecho Ambiental n.º 4: Acuerdo de Escazú, Ley 70 de 1993 y Decreto 1396 de 2023. Puntos de encuentro para la garantía de derechos étnico-territoriales",
+    kind: "Cuaderno de Derecho Ambiental",
+    status: "Publicado",
+    publisher: "Fondo Mundial para la Naturaleza (WWF Colombia)",
+    year: 2026,
+  },
+  {
+    title:
+      "Cuadernos de Derecho Ambiental: reglamentación de los temas ambientales de la Ley 70. Contenido y alcance del Decreto 1384 de 2023",
+    kind: "Cuaderno de Derecho Ambiental",
+    status: "Publicado",
+    publisher: "Fondo Mundial para la Naturaleza (WWF Colombia)",
+    year: 2024,
+  },
+  {
+    title:
+      "La reconfiguración de «lo urbano» en la región del Pacífico colombiano: un camino para enfrentar el cambio climático",
+    kind: "Artículo",
+    status: "En evaluación",
+    authors: ["Lisneider Hinestroza Cuesta", "Frank Sebastián Mena García", "D. D. Palacios Robledo"],
+  },
+  {
+    title: "¿Educar para la justicia racial o para el privilegio? Un nuevo horizonte para la enseñanza jurídica",
+    kind: "Artículo",
+    status: "En evaluación",
+    authors: ["Frank Sebastián Mena García", "Nelsy Moreno Ibargüen"],
+  },
+];
+
 // ============================================================
 // Proyectos
 // ============================================================
@@ -269,7 +417,7 @@ export const projectsData: Project[] = [
       "Exportación estática en Hostinger",
       "Supabase (esquema preparado, aún sin conectar)",
     ],
-    repositoryUrl: "https://github.com/FRANK1808K/iuriscode-web",
+    repositoryUrl: "https://github.com/FRANK1808K/franksebastianmena",
     image: {
       src: "/images/projects/sitio-web.webp",
       alt: "Página de inicio de este sitio vista en un navegador de escritorio y en un teléfono",

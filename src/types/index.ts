@@ -21,6 +21,13 @@ export interface FocusArea {
   description: string;
 }
 
+export interface Language {
+  name: string;
+  /** Código ISO 639-1, para el JSON-LD. */
+  code: string;
+  level: string;
+}
+
 export interface Profile {
   fullName: string;
   headline: string;
@@ -31,10 +38,43 @@ export interface Profile {
   /** Biografía en Markdown, en primera persona. */
   bio: string;
   avatarUrl: string;
+  /** Foto espontánea para la biografía (ruta dentro de /public). */
+  candidPhoto: { src: string; alt: string; width: number; height: number };
+  /** Hoja de vida en PDF (ruta dentro de /public). */
+  cvUrl: string;
   focusAreas: FocusArea[];
   experience: TimelineItem[];
   education: TimelineItem[];
   skills: SkillGroup[];
+  languages: Language[];
+}
+
+// --- Trayectoria pública ---
+export interface Recognition {
+  title: string;
+  contest: string;
+  organization: string;
+  year: number;
+}
+
+export interface Participation {
+  title: string;
+  role: string;
+  organization: string;
+  period: string;
+  location?: string;
+}
+
+export interface FeaturedVideo {
+  title: string;
+  description: string;
+  src: string;
+  poster: string;
+  width: number;
+  height: number;
+  /** ISO 8601, p. ej. "PT16S". */
+  duration: string;
+  recordedAt: string;
 }
 
 // --- Formación y certificaciones ---
@@ -76,6 +116,17 @@ export interface Publication {
   pdfUrl: string;
   pdfPages: number;
   externalUrl?: string;
+}
+
+/** Publicaciones y manuscritos que no tienen ficha propia. */
+export interface PublicationEntry {
+  title: string;
+  kind: string;
+  status: "Publicado" | "En evaluación";
+  /** Sin autores, la entrada no los muestra (no se infieren). */
+  authors?: string[];
+  publisher?: string;
+  year?: number;
 }
 
 // --- Proyectos ---
